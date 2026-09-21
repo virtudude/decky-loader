@@ -1,4 +1,4 @@
-name: Builder (Linux x86_64)
+name: Builder
 
 on:
   push:

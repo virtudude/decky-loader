@@ -297,16 +297,13 @@ class Updater:
                 works = await res.json()
         #Iterate over the workflow_run to get the two builds if they exists
         for work in works['workflow_runs']:
-            # Windows x86_64
-            if ON_WINDOWS and work['name'] == 'Builder (Windows)' or work['name'] == 'Builder Win':
+            if ON_WINDOWS and work['name'] == 'Builder Win':
                 down_id=work['id']
                 break
-            # Linux arm64
-            elif ON_LINUX and ON_ARM64 and work['name'] == 'Builder (Linux arm64)':
+            elif ON_LINUX and ON_ARM64 and work['name'] == 'Builder ARM64':
                 down_id=work['id']
                 break
-            # Linux x86_64
-            elif ON_LINUX and work['name'] == 'Builder (Linux x86_64)' or work['name'] == 'Builder':
+            elif ON_LINUX and not ON_ARM64 and work['name'] == 'Builder':
                 down_id=work['id']
                 break
         if down_id != '':
