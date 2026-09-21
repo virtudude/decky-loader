@@ -10,4 +10,4 @@ jobs:
     uses: ./.github/workflows/build-linux.yml
     with:
       arch: x86_64
-      output_name: PluginLoader
+      artifact_name: PluginLoader

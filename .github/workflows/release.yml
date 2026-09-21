@@ -136,11 +136,23 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [create_tag, build, build_arm64]
     steps:
-      - name: Fetch package artifacts ⬇️
+      - name: Fetch package artifact (x86_64) ⬇️
         uses: actions/download-artifact@v4
         with:
-          pattern: PluginLoader*
-          merge-multiple: true
+          name: PluginLoader
+          path: ./artifacts/x86_64
+
+      - name: Fetch package artifact (arm64) ⬇️
+        uses: actions/download-artifact@v4
+        with:
+          name: PluginLoader-arm64
+          path: ./artifacts/arm64
+
+      # Release assets need unique names; the artifacts both contain "PluginLoader"
+      - name: Name release assets 🛠️
+        run: |
+          mv ./artifacts/x86_64/PluginLoader ./PluginLoader
+          mv ./artifacts/arm64/PluginLoader ./PluginLoader-arm64
 
       - name: Pre-release 📦
         if: github.event.inputs.release == 'prerelease'
